@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+<context:component-scan base-package="com.controller"/>
+<context:component-scan base-package="com.service"/>
+
+<context:annotation-config/>
+<mvc:annotation-driven/>
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/views/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>
+
+<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<property name="basename" value="/messages/messages"></property>
+</bean>
+
+<!-- For sending mail -->
+<!-- 	
+I had the same problem !!
+
+This is how i Solved.. google prevent it for security purpose..
+
+Go Login from Your browser from that email.. i had problem with google if it is google go here : https://www.google.com/settings/security/lesssecureapps -->
+<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+  <property name="host" value="smtp.gmail.com" />  
+    <property name="username" value=" ur email" />  
+    <property name="password" value="ur password" />  
+    <property name="javaMailProperties">  
+       <props>  
+              <prop key="mail.smtp.auth">true</prop>  
+              <prop key="mail.smtp.socketFactory.port">465</prop>  
+              <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>  
+              <prop key="mail.smtp.port">465</prop>  
+        </props>  
+    </property>  
+</bean>  
+
+
+</beans>
